@@ -1,7 +1,7 @@
 import { GameScene } from './scenes/game-scene';
 
 export const GameConfig: Phaser.Types.Core.GameConfig = {
-  title: 'Endless Runner',
+  title: 'Sneaker Rush',
   url: 'https://github.com/digitsensitive/phaser3-typescript',
   version: '1.0',
   type: Phaser.AUTO,
