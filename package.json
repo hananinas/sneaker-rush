@@ -15,6 +15,7 @@
     "kaboom": "^3000.0.4",
     "next": "^12.3.4",
     "next-plugin-preact": "^3.0.7",
+    "phaser": "^3.60.0",
     "postcss": "^8.4.24",
     "preact": "^10.15.1",
     "preact-render-to-string": "^5.2.6",

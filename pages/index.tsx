@@ -1,19 +1,15 @@
-import type { NextPage } from 'next'
-import Game from '../components/game/Game'
+// pages/index.js
+import Link from 'next/link';
 
-// Delete this if runtime JavaScript is needed:
-export const config = {
-  unstable_runtimeJS: false,
-}
-
-const Home: NextPage = () => {
+const HomePage = () => {
   return (
-    <>
-    <div suppressHydrationWarning={true}>
-     {process.browser && < Game/>}
+    <div>
+      <h1>Welcome to my Next.js app!</h1>
+      <Link href="/game">
+        <a>Play the Game</a>
+      </Link>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default Home
+export default HomePage;
