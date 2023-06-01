@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import DeleteMe from 'components/DeleteMe'
+import Game from '../components/game/Game'
 
 // Delete this if runtime JavaScript is needed:
 export const config = {
@@ -9,7 +9,7 @@ export const config = {
 const Home: NextPage = () => {
   return (
     <>
-      <DeleteMe />
+     <Game/>
     </>
   )
 }

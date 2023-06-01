@@ -71,14 +71,14 @@ const Meta: NextPage<Props> = ({
 export default Meta
 
 Meta.defaultProps = {
-  title: 'ThankYouNext 🖤',
-  keywords: 'web development, programming, next.js',
+  title: 'Sneaker Rush',
+  keywords: 'Game, sneakerhead',
   description:
-    'Next.js starter template featuring TypeScript, Tailwind CSS, Preact and much more!',
-  imageSource: 'https://thankyounext.vercel.app/seo.png',
+    'The ultimate game',
+  imageSource: '',
   imageType: 'image/png',
   imageAltText:
-    'ThankYouNext - A highly performant and accessible Next.js starter template',
+    'hej',
   imageWidth: '1600',
   imageHeight: '882',
   type: 'website',
