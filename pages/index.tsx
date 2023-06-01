@@ -9,7 +9,9 @@ export const config = {
 const Home: NextPage = () => {
   return (
     <>
-     <Game/>
+    <div suppressHydrationWarning={true}>
+     {process.browser && < Game/>}
+    </div>
     </>
   )
 }
