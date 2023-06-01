@@ -10,26 +10,26 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.0",
-    "husky-init": "^7.0.0",
+    "autoprefixer": "^10.4.14",
+    "husky-init": "^7.1.0",
     "kaboom": "^3000.0.4",
-    "next": "^12.0.7",
-    "next-plugin-preact": "^3.0.6",
-    "postcss": "^8.4.4",
-    "preact": "^10.6.4",
-    "preact-render-to-string": "^5.1.19",
-    "react": "npm:@preact/compat",
-    "react-dom": "npm:@preact/compat",
-    "react-ssr-prepass": "npm:preact-ssr-prepass",
+    "next": "^12.3.4",
+    "next-plugin-preact": "^3.0.7",
+    "postcss": "^8.4.24",
+    "preact": "^10.15.1",
+    "preact-render-to-string": "^5.2.6",
+    "react": "npm:@preact/compat@^17.1.2",
+    "react-dom": "npm:@preact/compat@^17.1.2",
+    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.2.0",
     "scheduler": "^0.20.2",
-    "tailwindcss": "^3.0.0"
+    "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
     "@types/node": "16.11.12",
     "@types/react": "17.0.37",
     "eslint": "8.4.1",
     "eslint-config-next": "12.0.7",
-    "husky": "^7.0.0",
+    "husky": "^7.0.4",
     "typescript": "4.5.3"
   },
   "prettier": {
