@@ -2,7 +2,7 @@ import { BlurFilter } from 'pixi.js';
 import { Stage, Container, Sprite, Text, Graphics } from '@pixi/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-
+import test from '../assets/test.png';
 export default function MyComponent() {
   const isMobile = useMediaQuery({ maxWidth: 767 }); // Define mobile breakpoint
 
@@ -31,21 +31,21 @@ export default function MyComponent() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-blue-500">
+    <div className="w-[100vh] h-[100vh] bg-blue-500">
       <Stage
-        width={isMobile ? stageWidth * 0.9 : stageWidth}
-        height={isMobile ? stageHeight * 0.9 : stageHeight}
-        options={{ antialias: true, autoDensity: true, backgroundColor: 0xeef1f5 }}
+        width={isMobile ? stageWidth * 1: stageWidth}
+        height={isMobile ? stageHeight * 1 : stageHeight}
+        options={{ antialias: true, autoDensity: true, backgroundAlpha: 0 
+        }}
       >
         <Sprite
-          image="https://cdn.shopify.com/s/files/1/0070/7647/9089/products/ice_1200x720.jpg?v=1614685184"
-          x={700}
-          y={270}
-          anchor={{ x: 0.5, y: 0.5 }}
+          image={test}
+          width={isMobile ? stageWidth * 1 : stageWidth}
+          height={isMobile ? stageHeight * 1 : stageHeight}
         />
-        <Graphics draw={box} />
+        <Graphics draw={box}  x={0} y={stageHeight *0.8} />
 
-        <Container x={400} y={330}>
+        <Container>
           <Text text="Hello World" anchor={{ x: 0.5, y: 0.5 }} />
         </Container>
       </Stage>
