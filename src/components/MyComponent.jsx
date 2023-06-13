@@ -18,7 +18,7 @@ export default function MyComponent() {
     g.clear();
     g.lineStyle(10, 0xffffff);
     g.beginFill(0xff3300);
-    g.drawRect(50, 100, 300, 120);
+    g.drawRect(0, 50, stageWidth* 1.1, 100);
     g.endFill();
   }, []);
 
@@ -34,6 +34,8 @@ export default function MyComponent() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  
 
   useEffect(() => {
 
@@ -72,6 +74,9 @@ export default function MyComponent() {
       const touchX = touch.clientX;
   
       if (touchX < window.innerWidth / 2) {
+        setShoeX((prevShoeX) => prevShoeX - 20);
+
+
         // Left side touched
         pressTimer = setTimeout(() => {
           // Long press event
@@ -80,6 +85,7 @@ export default function MyComponent() {
           }, 100); // Adjust the interval duration for continuous movement
         }, 500); // Adjust the duration for a long press as needed
       } else {
+        setShoeX((prevShoeX) => prevShoeX + 20);
         // Right side touched
         pressTimer = setTimeout(() => {
           // Long press event
@@ -121,23 +127,19 @@ export default function MyComponent() {
         height={isMobile ? stageHeight * 1 : stageHeight}
         options={{ antialias: true, autoDensity: true, backgroundAlpha: 0 }}
       >
-        <Sprite
-          image={test}
-          width={isMobile ? stageWidth * 1 : stageWidth}
-          height={isMobile ? stageHeight * 1 : stageHeight}
-        />
+       
         <Graphics draw={box} x={0} y={stageHeight * 0.8} />
 
         <Container>
-          <Text text="Hello World" anchor={{ x: 0, y: 0 }} />
+          <Text text="Points: " anchor={{ x: 0, y: 0 }} />
         </Container>
 
         <Sprite
           image={shoeBox} // Replace with your ball image source
           width={100}
           height={100}
-          x={shoeX} // Center the ball horizontally
-          y={stageHeight * 0.9}
+          x={shoeX} 
+          y={stageHeight * 0.8}
         />
       </Stage>
     </div>
