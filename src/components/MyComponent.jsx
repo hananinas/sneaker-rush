@@ -36,6 +36,9 @@ export default function MyComponent() {
   }, []);
 
   useEffect(() => {
+
+    let pressTimer = null;
+
     const handleKey = (event) => {
       switch (event.key) {
         case 'ArrowLeft':
@@ -69,22 +72,35 @@ export default function MyComponent() {
   
       if (touchX < window.innerWidth / 2) {
         // Left side touched
-        setShoeX((prevShoeX) => prevShoeX - 10);
+        pressTimer = setTimeout(() => {
+          // Long press event
+          setShoeX((prevShoeX) => prevShoeX - 10);
+        }, 500); // Adjust the duration for a long press as needed
       } else {
         // Right side touched
-        setShoeX((prevShoeX) => prevShoeX + 10);
+        pressTimer = setTimeout(() => {
+          // Long press event
+          setShoeX((prevShoeX) => prevShoeX + 10);
+        }, 500); // Adjust the duration for a long press as needed
       }
     };
 
+
+    const handleTouchEnd = () => {
+      clearTimeout(pressTimer);
+    };
   
     window.addEventListener('keydown', handleKey);
     window.addEventListener('mousedown', handleMouse);
     window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchend', handleTouchEnd);
+
 
     return () => {
       window.removeEventListener('keydown', handleKey);
       window.removeEventListener('mousedown', handleMouse);
       window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
   
