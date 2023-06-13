@@ -38,14 +38,15 @@ export default function MyComponent() {
   useEffect(() => {
 
     let pressTimer = null;
+    let interval = null;
 
     const handleKey = (event) => {
       switch (event.key) {
         case 'ArrowLeft':
-          setShoeX((prevShoeX) => prevShoeX - 10);
+          setShoeX((prevShoeX) => prevShoeX - 20);
           break;
         case 'ArrowRight':
-          setShoeX((prevShoeX) => prevShoeX + 10);
+          setShoeX((prevShoeX) => prevShoeX + 20);
           break;
         default:
           break;
@@ -56,10 +57,10 @@ export default function MyComponent() {
       if (event.button === 0) {
         if (event.clientX < window.innerWidth / 2) {
           // Left side clicked
-          setShoeX((prevShoeX) => prevShoeX - 10);
+          setShoeX((prevShoeX) => prevShoeX - 20);
         } else {
           // Right side clicked
-          setShoeX((prevShoeX) => prevShoeX + 10);
+          setShoeX((prevShoeX) => prevShoeX + 20);
         }
       } else if (event.pres) {
 
@@ -74,33 +75,38 @@ export default function MyComponent() {
         // Left side touched
         pressTimer = setTimeout(() => {
           // Long press event
-          setShoeX((prevShoeX) => prevShoeX - 10);
+          interval = setInterval(() => {
+            setShoeX((prevShoeX) => prevShoeX - 20);
+          }, 100); // Adjust the interval duration for continuous movement
         }, 500); // Adjust the duration for a long press as needed
       } else {
         // Right side touched
         pressTimer = setTimeout(() => {
           // Long press event
-          setShoeX((prevShoeX) => prevShoeX + 10);
+          interval = setInterval(() => {
+            setShoeX((prevShoeX) => prevShoeX + 20);
+          }, 100); // Adjust the interval duration for continuous movement
         }, 500); // Adjust the duration for a long press as needed
       }
     };
-
-
+  
     const handleTouchEnd = () => {
       clearTimeout(pressTimer);
+      clearInterval(interval);
     };
+  
   
     window.addEventListener('keydown', handleKey);
     window.addEventListener('mousedown', handleMouse);
     window.addEventListener('touchstart', handleTouchStart);
     window.addEventListener('touchend', handleTouchEnd);
 
-
     return () => {
       window.removeEventListener('keydown', handleKey);
       window.removeEventListener('mousedown', handleMouse);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', handleTouchEnd);
+
     };
   }, []);
   
