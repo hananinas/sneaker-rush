@@ -63,13 +63,28 @@ export default function MyComponent() {
       } 
     };
 
+    const handleTouchStart = (event) => {
+      const touch = event.touches[0];
+      const touchX = touch.clientX;
+  
+      if (touchX < window.innerWidth / 2) {
+        // Left side touched
+        setShoeX((prevShoeX) => prevShoeX - 10);
+      } else {
+        // Right side touched
+        setShoeX((prevShoeX) => prevShoeX + 10);
+      }
+    };
+
   
     window.addEventListener('keydown', handleKey);
     window.addEventListener('mousedown', handleMouse);
-  
+    window.addEventListener('touchstart', handleTouchStart);
+
     return () => {
       window.removeEventListener('keydown', handleKey);
       window.removeEventListener('mousedown', handleMouse);
+      window.removeEventListener('touchstart', handleTouchStart);
     };
   }, []);
   
