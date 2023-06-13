@@ -13,12 +13,13 @@ export default function MyComponent() {
   const [stageHeight, setStageHeight] = useState(window.innerHeight);
   const [ballSpeed, setBallSpeed] = useState(0); // Ball's vertical speed [px/frame]
   const [shoeX, setShoeX] = useState(stageWidth / 2 - 25); // Ball's vertical position
+  const [listShoes, setListShoes] = useState([shoes]); // List of shoes
 
   const box = useCallback((g) => {
     g.clear();
     g.lineStyle(10, 0xffffff);
     g.beginFill(0xff3300);
-    g.drawRect(0, 50, stageWidth* 1.1, 100);
+    g.drawRect(-10, 50, stageWidth* 1.1, 100);
     g.endFill();
   }, []);
 
@@ -35,7 +36,7 @@ export default function MyComponent() {
     };
   }, []);
 
-  
+
 
   useEffect(() => {
 
@@ -115,19 +116,27 @@ export default function MyComponent() {
 
     };
   }, []);
+
   
-
-
- 
 
   return (
     <div className="w-[100vh] h-[100vh] bg-blue-500">
+    
       <Stage
         width={isMobile ? stageWidth * 1 : stageWidth}
         height={isMobile ? stageHeight * 1 : stageHeight}
         options={{ antialias: true, autoDensity: true, backgroundAlpha: 0 }}
       >
        
+       {listShoes.map((shoe) => (
+        console.log(shoe),
+         <Sprite
+              image={shoe} // Replace with your ball image source
+             width={50}
+             height={50}
+             x={shoeX} 
+         />
+        ))}
         <Graphics draw={box} x={0} y={stageHeight * 0.8} />
 
         <Container>
