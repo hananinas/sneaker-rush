@@ -13,6 +13,7 @@ import shoes from "../assets/shoes-test.png";
 import test from "../assets/test.png";
 import shoeBox from "../assets/box-test.png";
 import Shoe from "./shoe/shoe";
+import Box from "./box/box";
 
 export default function MyComponent() {
 
@@ -23,7 +24,7 @@ export default function MyComponent() {
      },
      {
       name: "Nike Air Force 1",
-      image: shoes,
+      image: test,
      },
      {
       name: "Nike Air Force 1",
@@ -66,79 +67,25 @@ export default function MyComponent() {
     };
   }, []);
 
+
+  const shuffleArray = (array) => {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  };
+
   useEffect(() => {
-    let pressTimer = null;
-    let interval = null;
-
-    const handleKey = (event) => {
-      switch (event.key) {
-        case "ArrowLeft":
-          setShoeX((prevShoeX) => prevShoeX - 20);
-          break;
-        case "ArrowRight":
-          setShoeX((prevShoeX) => prevShoeX + 20);
-          break;
-        default:
-          break;
-      }
-    };
-
-    const handleMouse = (event) => {
-      if (event.button === 0) {
-        if (event.clientX < window.innerWidth / 2) {
-          // Left side clicked
-          setShoeX((prevShoeX) => prevShoeX - 20);
-        } else {
-          // Right side clicked
-          setShoeX((prevShoeX) => prevShoeX + 20);
-        }
-      } else if (event.pres) {
-      }
-    };
-
-    const handleTouchStart = (event) => {
-      const touch = event.touches[0];
-      const touchX = touch.clientX;
-
-      if (touchX < window.innerWidth / 2) {
-        setShoeX((prevShoeX) => prevShoeX - 20);
-
-        // Left side touched
-        pressTimer = setTimeout(() => {
-          // Long press event
-          interval = setInterval(() => {
-            setShoeX((prevShoeX) => prevShoeX - 20);
-          }, 100); // Adjust the interval duration for continuous movement
-        }, 500); // Adjust the duration for a long press as needed
-      } else {
-        setShoeX((prevShoeX) => prevShoeX + 20);
-        // Right side touched
-        pressTimer = setTimeout(() => {
-          // Long press event
-          interval = setInterval(() => {
-            setShoeX((prevShoeX) => prevShoeX + 20);
-          }, 100); // Adjust the interval duration for continuous movement
-        }, 500); // Adjust the duration for a long press as needed
-      }
-    };
-
-    const handleTouchEnd = () => {
-      clearTimeout(pressTimer);
-      clearInterval(interval);
-    };
-
-    window.addEventListener("keydown", handleKey);
-    window.addEventListener("mousedown", handleMouse);
-    window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchend", handleTouchEnd);
-
-    return () => {
-      window.removeEventListener("keydown", handleKey);
-      window.removeEventListener("mousedown", handleMouse);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
+    setListShoes(shuffleArray(shoesList));
   }, []);
+
+
+ 
 
   return (
     <div className="w-[100vh] h-[100vh] bg-blue-500">
@@ -147,14 +94,7 @@ export default function MyComponent() {
         height={isMobile ? stageHeight * 1 : stageHeight}
         options={{ antialias: true, autoDensity: true, backgroundAlpha: 0 }}
       >
-        {listShoes.map(
-          (shoe) => (
-            console.log(shoe),
-            (
-              <Shoe shoe={shoe} stage={Stage}/>
-            )
-          )
-        )}
+       
         <Graphics draw={box} x={0} y={stageHeight * 0.8} />
 
         <Container x={stageWidth * 0} y={stageHeight * 0}>
@@ -182,14 +122,17 @@ export default function MyComponent() {
             }
           />
         </Container>
+         
+         <Box stageHeight={stageHeight} stageWidth={stageWidth} />
 
-        <Sprite
-          image={shoeBox} // Replace with your ball image source
-          width={100}
-          height={100}
-          x={shoeX}
-          y={stageHeight * 0.8}
-        />
+         {listShoes.map(
+          (shoe) => (
+            console.log(shoe),
+            (
+              <Shoe shoe={shoe} stage={Stage} stageHeight={stageHeight} />
+            )
+          )
+        )}
       </Stage>
     </div>
   );

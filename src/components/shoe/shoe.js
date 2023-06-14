@@ -17,7 +17,7 @@ export default function Shoe(props) {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setRandomX(getRandomX());
-        }, 200);
+        }, 600);
 
         return () => {
             clearInterval(intervalId);
@@ -26,17 +26,24 @@ export default function Shoe(props) {
 
     useEffect(() => {
         const animationIntervalId = setInterval(() => {
-          setY((prevY) => prevY + 40); // Update the y coordinate gradually by incrementing it
-        }, 100);
-    
+            console.log(props.stageHeight + 'Y' + Y );
+
+            setY((prevY) => {
+                const newY = prevY + 40; // Increment the y coordinate
+
+                if (newY >= props.stageHeight) {
+                    setRandomX(getRandomX()); // Reset the x coordinate
+                    return 0; // Reset the y coordinate
+                }
+
+                return newY;
+            });
+        }, 300);
+
         return () => {
-          clearInterval(animationIntervalId);
+            clearInterval(animationIntervalId);
         };
     }, []);
-
-
-    console.log(id);
-    console.log(randomX);
 
     return (
         <Sprite
