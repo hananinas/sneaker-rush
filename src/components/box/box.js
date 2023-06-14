@@ -47,7 +47,7 @@ export default function Box(props) {
           pressTimer = setTimeout(() => {
             // Long press event
             interval = setInterval(() => {
-              setShoeX((prevShoeX) => prevShoeX - 20);
+              setShoeX((prevShoeX) => prevShoeX + 20);
             }, 100); // Adjust the interval duration for continuous movement
           }, 500); // Adjust the duration for a long press as needed
         } else {
@@ -56,7 +56,7 @@ export default function Box(props) {
           pressTimer = setTimeout(() => {
             // Long press event
             interval = setInterval(() => {
-              setShoeX((prevShoeX) => prevShoeX + 20);
+              setShoeX((prevShoeX) => prevShoeX - 20);
             }, 100); // Adjust the interval duration for continuous movement
           }, 500); // Adjust the duration for a long press as needed
         }
