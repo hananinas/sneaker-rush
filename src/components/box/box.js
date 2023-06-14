@@ -8,9 +8,6 @@ export default function Box(props) {
   const [shoeX, setShoeX] = useState(props.stageWidth / 2 - 25); // Ball's vertical position
 
   useEffect(() => {
-    let pressTimer = null;
-    let interval = null;
-  
     const handleKey = (event) => {
       switch (event.key) {
         case "ArrowLeft":
@@ -42,37 +39,26 @@ export default function Box(props) {
   
       if (touchX < window.innerWidth / 2) {
         setShoeX((prevShoeX) => prevShoeX - 20);
-  
-        // Left side touched
-        pressTimer = setTimeout(() => {
-          // Long press event
-          interval = setInterval(() => {
-            setShoeX((prevShoeX) => prevShoeX - 20);
-          }, 100); // Adjust the interval duration for continuous movement
-        }, 500); // Adjust the duration for a long press as needed
       } else {
         setShoeX((prevShoeX) => prevShoeX + 20);
-        // Right side touched
-        pressTimer = setTimeout(() => {
-          // Long press event
-          interval = setInterval(() => {
-            setShoeX((prevShoeX) => prevShoeX + 20);
-          }, 100); // Adjust the interval duration for continuous movement
-        }, 500); // Adjust the duration for a long press as needed
       }
-    };
-  
-    const handleTouchEnd = () => {
-      clearTimeout(pressTimer);
-      clearInterval(interval);
     };
   
     const handleSwipe = (event) => {
+      let interval;
       if (event.direction === Hammer.DIRECTION_LEFT) {
-        setShoeX((prevShoeX) => prevShoeX - 20);
+        interval = setInterval(() => {
+          setShoeX((prevShoeX) => prevShoeX - 20);
+        }, 100); // Adjust the interval duration for continuous movement
       } else if (event.direction === Hammer.DIRECTION_RIGHT) {
-        setShoeX((prevShoeX) => prevShoeX + 20);
+        interval = setInterval(() => {
+          setShoeX((prevShoeX) => prevShoeX + 20);
+        }, 100); // Adjust the interval duration for continuous movement
       }
+  
+      setTimeout(() => {
+        clearInterval(interval);
+      }, 500); // Adjust the duration for continuous movement as needed
     };
   
     const hammerManager = new Hammer.Manager(window);
@@ -83,18 +69,15 @@ export default function Box(props) {
     window.addEventListener("keydown", handleKey);
     window.addEventListener("mousedown", handleMouse);
     window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchend", handleTouchEnd);
   
     return () => {
       hammerManager.off("swipe", handleSwipe);
       window.removeEventListener("keydown", handleKey);
       window.removeEventListener("mousedown", handleMouse);
       window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, []);
-  
-
+    
   return (
     <Sprite
       image={shoeBox} // Replace with your ball image source
