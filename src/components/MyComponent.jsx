@@ -16,26 +16,28 @@ import Shoe from "./shoe/shoe";
 import Box from "./box/box";
 
 export default function MyComponent() {
-
   const shoesList = [
-     {
+    {
       name: "Nike Air Force 1",
       image: shoes,
-     },
-     {
+      points:1
+    },
+    {
       name: "Nike Air Force 1",
       image: test,
-     },
-     {
+      points:2,
+    },
+    {
       name: "Nike Air Force 1",
       image: shoes,
-     },
-     {
+      points: 1,
+    },
+    {
       name: "Nike Air Force 1",
       image: shoes,
-     } 
-
-  ]
+      points: 5,
+    },
+  ];
 
   const isMobile = useMediaQuery({ maxWidth: 767 }); // Define mobile breakpoint
 
@@ -67,25 +69,32 @@ export default function MyComponent() {
     };
   }, []);
 
-
   const shuffleArray = (array) => {
     const shuffledArray = [...array];
+  
+    // Assign weights based on rarity
+    const weights = shuffledArray.map((shoe) => shoe.points || 1);
+  
     for (let i = shuffledArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
+  
+      // Swap shoes
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  
+      // Swap weights accordingly
+      [weights[i], weights[j]] = [weights[j], weights[i]];
     }
+  
+    // Sort the shoes based on their weights
+    shuffledArray.sort((a, b) => weights[array.indexOf(a)] - weights[array.indexOf(b)]);
+  
     return shuffledArray;
   };
+  
 
   useEffect(() => {
     setListShoes(shuffleArray(shoesList));
   }, []);
-
-
- 
 
   return (
     <div className="w-[100vh] h-[100vh] bg-blue-500">
@@ -94,7 +103,6 @@ export default function MyComponent() {
         height={isMobile ? stageHeight * 1 : stageHeight}
         options={{ antialias: true, autoDensity: true, backgroundAlpha: 0 }}
       >
-       
         <Graphics draw={box} x={0} y={stageHeight * 0.8} />
 
         <Container x={stageWidth * 0} y={stageHeight * 0}>
@@ -122,15 +130,13 @@ export default function MyComponent() {
             }
           />
         </Container>
-         
-         <Box stageHeight={stageHeight} stageWidth={stageWidth} />
 
-         {listShoes.map(
+        <Box stageHeight={stageHeight} stageWidth={stageWidth} />
+
+        {listShoes.map(
           (shoe) => (
             console.log(shoe),
-            (
-              <Shoe shoe={shoe} stage={Stage} stageHeight={stageHeight} />
-            )
+            (<Shoe shoe={shoe} stage={Stage} stageHeight={stageHeight} />)
           )
         )}
       </Stage>
